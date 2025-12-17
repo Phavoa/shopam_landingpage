@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Link from "next/link";
+import { FaTiktok } from "react-icons/fa";
 
 // Custom SVG Icons
 const CustomMessageCircleIcon = () => (
@@ -227,8 +228,8 @@ export default function ContactPage() {
                 className="text-gray-600 hover:text-gray-900 transition-colors"
                 aria-label="TikTok"
               >
-                <div className="w-5 h-5 bg-gray-600 hover:bg-gray-900 rounded-sm flex items-center justify-center transition-colors">
-                  <span className="text-[8px] font-bold text-white">TT</span>
+                <div className="w-5 h-5  rounded-sm flex items-center justify-center transition-colors">
+                  <FaTiktok className="w-4 h-4 sm:w-5 sm:h-5 text-black-800" />
                 </div>
               </Link>
               <Link

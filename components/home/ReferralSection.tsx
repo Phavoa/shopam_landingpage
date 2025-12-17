@@ -1,6 +1,6 @@
 import React from "react";
-import { Check } from "lucide-react";
 import ProcessImage from "./ProcessImage";
+import AnimatedUnderlineTitle from "./AnimatedUnderlineTitle";
 
 const referralBenefits = [
   "Earn N1,000 instantly when someone signs up and makes first purchase",
@@ -14,7 +14,12 @@ export default function ReferralSection() {
     <section className="pb-8 md:pb-10 bg-white pt-4">
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
         <h2 className="text-xl md:text-3xl font-black text-gray-900 mb-6 md:mb-8">
-          ShopAm Referral
+          <AnimatedUnderlineTitle
+            className="text-xl md:text-3xl font-black text-gray-900"
+            underlineColor="bg-orange-500"
+          >
+            ShopAm Referral
+          </AnimatedUnderlineTitle>
         </h2>
 
         <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 items-start">

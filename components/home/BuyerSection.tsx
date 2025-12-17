@@ -1,6 +1,7 @@
 import React from "react";
 import StepItem from "./StepItem";
 import ProcessImage from "./ProcessImage";
+import AnimatedUnderlineTitle from "./AnimatedUnderlineTitle";
 
 const buyerSteps = [
   {
@@ -39,7 +40,9 @@ export default function BuyerSection() {
   return (
     <div className="mb-6">
       <h2 className="text-xl md:text-3xl font-black text-gray-900 mb-4 ">
-        As a Buyer
+        <AnimatedUnderlineTitle className="text-xl md:text-3xl font-black text-gray-900">
+          As a Buyer
+        </AnimatedUnderlineTitle>
       </h2>
 
       <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">

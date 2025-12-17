@@ -166,8 +166,8 @@ export default function NewsletterSection() {
                   className="text-neutral-400 hover:text-white transition-colors p-1"
                   aria-label="TikTok"
                 >
-                  <div className="w-4 h-4 sm:w-5 sm:h-5 bg-neutral-400 hover:bg-white rounded-sm flex items-center justify-center transition-colors">
-                    <FaTiktok />
+                  <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-sm flex items-center justify-center transition-colors">
+                    <FaTiktok className="w-4 h-4 sm:w-5 sm:h-5 text-black-800" />
                   </div>
                 </Link>
                 <Link

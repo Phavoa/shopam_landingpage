@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback, useMemo, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSmoothScroll } from "./hooks/useSmoothScroll";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import ComingSoonModal from "./ComingSoonModal";
 
 // Navigation items - memoized for performance
@@ -23,6 +23,8 @@ export default function ShopAmHeader() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { scrollToHash } = useSmoothScroll();
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   // Memoized navigation items to prevent unnecessary re-renders
   const memoizedNavItems = useMemo(() => navItems, []);
@@ -42,12 +44,19 @@ export default function ShopAmHeader() {
         // Handle page navigation
         router.push(href);
       } else {
-        // Handle smooth scrolling for hash links
-        scrollToHash(href);
+        // Handle hash links with two-step navigation for non-home pages
+        if (pathname !== "/") {
+          // We're on a non-home page, navigate to home with query parameter
+          const sectionId = href.replace("#", "");
+          router.push(`/?section=${sectionId}`);
+        } else {
+          // We're on home page, just scroll to section
+          scrollToHash(href);
+        }
       }
       setIsOpen(false);
     },
-    [scrollToHash, router]
+    [scrollToHash, router, pathname]
   );
 
   const handleDownloadAppClick = useCallback(() => {
@@ -58,6 +67,23 @@ export default function ShopAmHeader() {
   const handleCloseModal = useCallback(() => {
     setIsModalOpen(false);
   }, []);
+
+  // Handle scrolling to section after navigation from non-home pages
+  useEffect(() => {
+    if (pathname === "/") {
+      const section = searchParams.get("section");
+      if (section) {
+        // Add a small delay to ensure the page has fully loaded
+        const timer = setTimeout(() => {
+          scrollToHash(`#${section}`);
+          // Clean up the URL by removing the query parameter
+          window.history.replaceState({}, "", "/");
+        }, 100);
+
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [pathname, searchParams, scrollToHash]);
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 border-b border-gray-200/90 bg-[#F0F8FF]/50 backdrop-blur supports-[backdrop-filter]:bg-[#F0F8FF]/50">
