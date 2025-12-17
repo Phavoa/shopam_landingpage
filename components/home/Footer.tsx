@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { FaTiktok } from "react-icons/fa";
+import { X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -128,20 +130,20 @@ export default function NewsletterSection() {
             <div className="flex sm:flex-row items-center justify-between gap-4 sm:gap-6">
               {/* Links */}
               <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-2 sm:gap-x-6 gap-y-2 text-xs sm:text-sm text-neutral-400">
-                <a
-                  href="#"
+                <Link
+                  href="/about"
                   className="hover:text-white transition-colors text-[10px] md:text-base"
                 >
                   About
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  href="/contant-us"
                   className="hover:text-white transition-colors text-[10px] md:text-base"
                 >
                   Contact
-                </a>
+                </Link>
                 <Link
-                  href="return-policy"
+                  href="/return-policy"
                   className="hover:text-white transition-colors text-[10px] md:text-base"
                 >
                   Return Policy
@@ -150,34 +152,32 @@ export default function NewsletterSection() {
 
               {/* Social Icons */}
               <div className="flex items-center  sm:space-x-4">
-                <a
-                  href="#"
-                  className="text-neutral-400 hover:text-white transition-colors p-1"
-                  aria-label="Twitter"
-                >
-                  <Twitter className="w-4 h-4 sm:w-5 sm:h-5" />
-                </a>
-                <a
-                  href="#"
-                  className="text-neutral-400 hover:text-white transition-colors p-1"
-                  aria-label="Facebook"
-                >
-                  <Facebook className="w-4 h-4 sm:w-5 sm:h-5" />
-                </a>
-                <a
-                  href="#"
+                <Link
+                  href="https://www.instagram.com/shopamng?igsh=MWFpNHBsN2c4c3JmZw%3D%3D&utm_source=qr"
+                  target="_blank"
                   className="text-neutral-400 hover:text-white transition-colors p-1"
                   aria-label="Instagram"
                 >
                   <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  href="https://www.tiktok.com/@shopamng?_r=1&_t=ZN-92IIymLWkCc"
+                  target="_blank"
                   className="text-neutral-400 hover:text-white transition-colors p-1"
-                  aria-label="LinkedIn"
+                  aria-label="TikTok"
                 >
-                  <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
-                </a>
+                  <div className="w-4 h-4 sm:w-5 sm:h-5 bg-neutral-400 hover:bg-white rounded-sm flex items-center justify-center transition-colors">
+                    <FaTiktok />
+                  </div>
+                </Link>
+                <Link
+                  href="https://x.com/shopamng?s=21"
+                  target="_blank"
+                  className="text-neutral-400 hover:text-white transition-colors p-1"
+                  aria-label="X (Twitter)"
+                >
+                  <X className="w-4 h-4 sm:w-5 sm:h-5" />
+                </Link>
               </div>
             </div>
           </div>
@@ -188,7 +188,7 @@ export default function NewsletterSection() {
               <p className="text-[10px] md:text-base">© 2025 ShopAm</p>
               <div className="flex items-center space-x-1 sm:space-x-4">
                 <Link
-                  href="terms-and-conditions"
+                  href="/terms-and-conditions"
                   className="hover:text-white transition-colors text-[10px] md:text-base"
                 >
                   Terms
