@@ -5,6 +5,7 @@ import { Mail, Facebook, Instagram, Youtube, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import Link from "next/link";
 
 // Custom SVG Icons
 const CustomMessageCircleIcon = () => (
@@ -212,41 +213,32 @@ export default function ContactPage() {
 
             {/* Social Media Icons */}
             <div className="flex items-center gap-3 pt-4">
-              <a
-                href="#"
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-                aria-label="X (Twitter)"
-              >
-                <XIcon />
-              </a>
-              <a
-                href="#"
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-                aria-label="Facebook"
-              >
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
+              <Link
+                href="https://www.instagram.com/shopamng?igsh=MWFpNHBsN2c4c3JmZw%3D%3D&utm_source=qr"
+                target="_blank"
                 className="text-gray-600 hover:text-gray-900 transition-colors"
                 aria-label="Instagram"
               >
                 <Instagram className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                href="https://www.tiktok.com/@shopamng?_r=1&_t=ZN-92IIymLWkCc"
+                target="_blank"
                 className="text-gray-600 hover:text-gray-900 transition-colors"
-                aria-label="YouTube"
+                aria-label="TikTok"
               >
-                <Youtube className="w-5 h-5" />
-              </a>
-              <a
-                href="#"
+                <div className="w-5 h-5 bg-gray-600 hover:bg-gray-900 rounded-sm flex items-center justify-center transition-colors">
+                  <span className="text-[8px] font-bold text-white">TT</span>
+                </div>
+              </Link>
+              <Link
+                href="https://x.com/shopamng?s=21"
+                target="_blank"
                 className="text-gray-600 hover:text-gray-900 transition-colors"
-                aria-label="LinkedIn"
+                aria-label="X (Twitter)"
               >
-                <Linkedin className="w-5 h-5" />
-              </a>
+                <XIcon />
+              </Link>
             </div>
           </div>
 
