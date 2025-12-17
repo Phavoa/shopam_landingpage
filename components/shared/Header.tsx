@@ -6,17 +6,23 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSmoothScroll } from "./hooks/useSmoothScroll";
+import { useRouter } from "next/navigation";
+import ComingSoonModal from "./ComingSoonModal";
 
 // Navigation items - memoized for performance
 const navItems = [
-  { label: "About", href: "#about" },
-  { label: "Features", href: "#features" },
-  { label: "How it Works", href: "#how-it-works" },
-  { label: "FAQs", href: "#faqs" },
+  { label: "About", href: "/about", isPageLink: true },
+  { label: "Features", href: "#features", isPageLink: false },
+  { label: "How it Works", href: "#how-it-works", isPageLink: false },
+  { label: "FAQs", href: "#faqs", isPageLink: false },
 ] as const;
 
 export default function ShopAmHeader() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { scrollToHash } = useSmoothScroll();
+  const router = useRouter();
 
   // Memoized navigation items to prevent unnecessary re-renders
   const memoizedNavItems = useMemo(() => navItems, []);
@@ -28,6 +34,29 @@ export default function ShopAmHeader() {
 
   const handleLinkClick = useCallback(() => {
     setIsOpen(false);
+  }, []);
+
+  const handleNavClick = useCallback(
+    (href: string, isPageLink: boolean) => {
+      if (isPageLink) {
+        // Handle page navigation
+        router.push(href);
+      } else {
+        // Handle smooth scrolling for hash links
+        scrollToHash(href);
+      }
+      setIsOpen(false);
+    },
+    [scrollToHash, router]
+  );
+
+  const handleDownloadAppClick = useCallback(() => {
+    setIsModalOpen(true);
+    setIsOpen(false); // Close mobile menu if open
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    setIsModalOpen(false);
   }, []);
 
   return (
@@ -53,19 +82,20 @@ export default function ShopAmHeader() {
             aria-label="Main navigation"
           >
             {memoizedNavItems.map((item) => (
-              <Link
+              <button
                 key={item.label}
-                href={item.href}
-                className="text-sm font-semibold text-gray-800 hover:text-green-600 transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-green-600 after:transition-all after:duration-300 hover:after:w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 rounded"
+                onClick={() => handleNavClick(item.href, item.isPageLink)}
+                className="text-sm font-semibold text-gray-800 hover:text-green-600 transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-green-600 after:transition-all after:duration-300 hover:after:w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 rounded bg-transparent"
                 aria-label={`Navigate to ${item.label}`}
               >
                 {item.label}
-              </Link>
+              </button>
             ))}
           </nav>
 
           {/* CTA Button - Desktop */}
           <Button
+            onClick={handleDownloadAppClick}
             className="hidden lg:flex bg-[#ED8123] hover:bg-[#ED8123]/90 text-white font-bold px-8 py-6 rounded-lg text-sm shadow-lg shadow-[#ED8123]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[#ED8123]/40 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#ED8123] focus:ring-opacity-50"
             aria-label="Download the ShopAm app"
           >
@@ -118,23 +148,24 @@ export default function ShopAmHeader() {
                     aria-label="Mobile navigation"
                   >
                     {memoizedNavItems.map((item) => (
-                      <Link
+                      <button
                         key={item.label}
-                        href={item.href}
-                        onClick={handleLinkClick}
-                        className="text-lg font-semibold  text-gray-800 hover:text-green-600 transition-colors duration-200 py-4 px-4  hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 font-sans border-b border-gray-300"
+                        onClick={() =>
+                          handleNavClick(item.href, item.isPageLink)
+                        }
+                        className="text-lg font-semibold  text-gray-800 hover:text-green-600 transition-colors duration-200 py-4 px-4  hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 font-sans border-b border-gray-300 bg-transparent text-left"
                         aria-label={`Navigate to ${item.label}`}
                       >
                         {item.label}
-                      </Link>
+                      </button>
                     ))}
                   </nav>
 
                   {/* Download App Button - Mobile */}
                   <div className="mt-8 pt-6 border-t border-gray-200/50 px-4">
                     <Button
+                      onClick={handleDownloadAppClick}
                       className="w-full bg-[#ED8123] hover:bg-[#ED8123]/90 text-white font-bold py-6 rounded-lg text-xs shadow-lg shadow-[#ED8123]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[#ED8123]/40 focus:outline-none focus:ring-2 focus:ring-[#ED8123] focus:ring-opacity-50 font-sans"
-                      onClick={handleLinkClick}
                       aria-label="Download the ShopAm app"
                     >
                       <span className="text-sm">Download App</span>
@@ -146,6 +177,9 @@ export default function ShopAmHeader() {
           </div>
         </div>
       </div>
+
+      {/* Coming Soon Modal */}
+      <ComingSoonModal isOpen={isModalOpen} onClose={handleCloseModal} />
     </header>
   );
 }

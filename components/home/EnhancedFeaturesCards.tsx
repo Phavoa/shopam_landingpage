@@ -1,14 +1,9 @@
 "use client";
 
 import React from "react";
-import { motion, useReducedMotion } from "framer-motion";
-import { useScrollAnimation } from "./hooks/useScrollAnimation";
 import EnhancedFeatureCard from "./EnhancedFeatureCard";
 
 export default function EnhancedFeaturesCards() {
-  const shouldReduceMotion = useReducedMotion();
-  const { ref, isVisible } = useScrollAnimation(0.3, "-50px");
-
   const features = [
     {
       icon: "/images/live-stream1.png",
@@ -49,32 +44,9 @@ export default function EnhancedFeaturesCards() {
   ];
 
   return (
-    <div
-      ref={ref as React.RefObject<HTMLDivElement>}
-      className="py-4 md:py-8 px-4 sm:px-6 lg:px-8"
-    >
+    <div className="py-4 md:py-8 px-4 sm:px-6 lg:px-8">
       <div className="mx-auto">
-        <motion.div
-          variants={
-            !shouldReduceMotion
-              ? {
-                  hidden: { opacity: 0 },
-                  visible: {
-                    opacity: 1,
-                    transition: {
-                      staggerChildren: 0.05,
-                      delayChildren: 0.05,
-                    },
-                  },
-                }
-              : undefined
-          }
-          initial={shouldReduceMotion ? "visible" : "hidden"}
-          animate={
-            shouldReduceMotion ? "visible" : isVisible ? "visible" : "hidden"
-          }
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           {features.map((feature, index) => (
             <EnhancedFeatureCard
               key={index}
@@ -84,7 +56,7 @@ export default function EnhancedFeaturesCards() {
               index={index}
             />
           ))}
-        </motion.div>
+        </div>
       </div>
     </div>
   );

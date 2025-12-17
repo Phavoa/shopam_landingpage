@@ -14,9 +14,9 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
   description,
 }) => {
   return (
-    <Card className="group p-8 border border-gray-200 rounded-3xl bg-white shadow-none transition-all duration-300 hover:-translate-y-1 cursor-pointer gap-0">
+    <Card className="p-8 border border-gray-200 rounded-3xl bg-white shadow-sm cursor-pointer">
       <div className="mb-6">
-        <div className="w-20 h-20 rounded-full bg-white border-2 border-gray-100 flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
+        <div className="w-20 h-20 rounded-full bg-white border-2 border-gray-100 flex items-center justify-center shadow-sm">
           <Image src={icon} alt="ShopAm Shop" width={50} height={50} />
         </div>
       </div>

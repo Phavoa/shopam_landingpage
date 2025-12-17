@@ -181,7 +181,7 @@ const AnimatedCard: React.FC<AnimatedCardProps> = ({
 
 export default function WhatIsShopAm() {
   return (
-    <div className="relative  bg-white overflow-hidden">
+    <section id="about" className="relative  bg-white overflow-hidden">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -344,6 +344,6 @@ export default function WhatIsShopAm() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
