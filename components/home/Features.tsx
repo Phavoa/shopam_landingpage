@@ -10,14 +10,14 @@ const Features = () => {
   const { ref, isVisible } = useScrollAnimation(0.3, "-50px");
 
   return (
-    <div className="bg-[#F0F8FF] relative pt-20 z-0 overflow-hidden">
+    <div className="bg-[#F0F8FF] relative pt-12 z-0 overflow-hidden">
       {/* Background lines with animation */}
       {!shouldReduceMotion && (
         <motion.div
           className="absolute top-0 w-full h-full inset-0 flex justify-center z-0 pointer-events-none"
           initial={{ opacity: 0 }}
           animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
         >
           <div className="border-x-3 border-gray-300 h-full w-2/5" />
         </motion.div>
@@ -31,7 +31,7 @@ const Features = () => {
           animate={
             isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }
           }
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         />
       )}
 
@@ -40,7 +40,7 @@ const Features = () => {
         {/* Animated title and subtitle */}
         <motion.div
           ref={ref as React.RefObject<HTMLDivElement>}
-          className="text-center mb-12"
+          className="text-center md:mb-8"
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 40 }}
           animate={
             shouldReduceMotion
@@ -49,10 +49,10 @@ const Features = () => {
               ? { opacity: 1, y: 0 }
               : { opacity: 0, y: 40 }
           }
-          transition={{ duration: 0.5, staggerChildren: 0.1 }}
+          transition={{ duration: 0.3, staggerChildren: 0.05 }}
         >
           <motion.h1
-            className="text-4xl md:text-5xl text-black font-bold font-termina mb-2 relative"
+            className="text-2xl md:text-3xl text-black font-bold font-termina mb-2 relative will-change-transform"
             initial={
               shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
             }
@@ -63,34 +63,21 @@ const Features = () => {
                 ? { opacity: 1, y: 0 }
                 : { opacity: 0, y: 20 }
             }
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
           >
             EveryThing You Need
             {/* Animated underline */}
-          </motion.h1>
-
-          <motion.h1
-            className="text-lg md:text-xl font-sans text-gray-700 leading-relaxed max-w-3xl mx-auto"
-            transition={{ duration: 0.5 }}
-          >
-            EveryThing You Need
-            {/* Animated underline */}
-            {!shouldReduceMotion && (
-              <motion.div
-                className="absolute bottom-0 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 rounded-full"
-                initial={{ width: 0, opacity: 0 }}
-                animate={
-                  isVisible
-                    ? { width: "60%", opacity: 1 }
-                    : { width: 0, opacity: 0 }
-                }
-                transition={{ delay: 0.5, duration: 0.8 }}
-              />
-            )}
           </motion.h1>
 
           <motion.p
-            className="text-2xl font-sans text-gray-700 leading-relaxed max-w-4xl mx-auto"
+            className="text-base md:text-lg font-sans text-gray-700 leading-relaxed max-w-3xl mx-auto will-change-transform"
+            transition={{ duration: 0.25, ease: "easeOut" }}
+          >
+            Everything You Need for Safe Shopping and Selling
+          </motion.p>
+
+          <motion.p
+            className="text-lg font-sans text-gray-700 leading-relaxed max-w-4xl mx-auto"
             initial={
               shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }
             }
@@ -101,7 +88,7 @@ const Features = () => {
                 ? { opacity: 1, y: 0 }
                 : { opacity: 0, y: 30 }
             }
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.3, delay: 0.1, ease: "easeOut" }}
           >
             Shop, sell, and earn with confidence using our comprehensive
             platform

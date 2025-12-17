@@ -1,0 +1,10 @@
+export { default as ShopAmAgents } from "./ShopAmAgents";
+export { default as HowItWorksSection } from "./HowItWorksSection";
+export { default as BuyerSection } from "./BuyerSection";
+export { default as SellerSection } from "./SellerSection";
+export { default as ReferralSection } from "./ReferralSection";
+export { default as ParcelShopsSection } from "./ParcelShopsSection";
+export { default as CallToAction } from "./CallToAction";
+export { default as StepItem } from "./StepItem";
+export { default as ProcessImage } from "./ProcessImage";
+export { default as SectionWrapper } from "./SectionWrapper";

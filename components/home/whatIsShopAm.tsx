@@ -4,42 +4,7 @@ import React, { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-
-// Button component (shadcn/ui style)
-const Button = React.forwardRef<
-  HTMLButtonElement,
-  React.ButtonHTMLAttributes<HTMLButtonElement> & {
-    variant?: "default" | "outline" | "ghost";
-    size?: "default" | "sm" | "lg";
-  }
->(
-  (
-    { className = "", variant = "default", size = "default", ...props },
-    ref
-  ) => {
-    const baseStyles =
-      "inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
-    const variants = {
-      default: "bg-[#ED8123] text-white hover:bg-[#ED8123]",
-      outline: "border-2 border-orange-500 text-orange-500 hover:bg-orange-50",
-      ghost: "hover:bg-gray-100",
-    };
-    const sizes = {
-      default: "h-10 px-4 py-2",
-      sm: "h-9 px-3 text-sm",
-      lg: "h-12 px-8 text-base",
-    };
-
-    return (
-      <button
-        className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
-        ref={ref}
-        {...props}
-      />
-    );
-  }
-);
-Button.displayName = "Button";
+import { Button } from "@/components/ui/button";
 
 // Enhanced Typing Text Component with Framer Motion
 interface TypingTextProps {
@@ -87,32 +52,32 @@ const TypingText: React.FC<TypingTextProps> = ({
 
   return (
     <div className={`text-white text-xs font-medium font-sans ${className}`}>
-      <motion.span
-        className="whitespace-pre-wrap font-sans text-white text-[7px] md:text-xs leading-1 md:leading-0"
+      <motion.p
+        className="whitespace-pre-wrap font-sans text-white text-[7px] md:text-xs leading-snug"
         // style={{ lineHeight: -10 }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.3 }}
       >
         {displayText}
-      </motion.span>
-      <AnimatePresence>
-        {!isTypingComplete && (
-          <motion.span
-            className="inline-block ml-0.5  text-[7px] md:text-xs"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 1, 0] }}
-            transition={{
-              duration: 1,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            exit={{ opacity: 0 }}
-          >
-            |
-          </motion.span>
-        )}
-      </AnimatePresence>
+        <AnimatePresence>
+          {!isTypingComplete && (
+            <motion.span
+              className="inline ml-0.5  text-[7px] md:text-xs"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 1, 0] }}
+              transition={{
+                duration: 1,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              exit={{ opacity: 0 }}
+            >
+              |
+            </motion.span>
+          )}
+        </AnimatePresence>
+      </motion.p>
     </div>
   );
 };
@@ -275,7 +240,7 @@ export default function WhatIsShopAm() {
               imageSrc={"/images/bitcoin1.png"}
               imageAlt="bitcoin"
               text="Discover authentic products. Verified sellers, trusted shopping."
-              position="top-0 right-0 translate-x-15"
+              position="top-0 right-12 md:right-0 translate-x-15"
               delay={1500}
               index={1}
             />
@@ -284,7 +249,7 @@ export default function WhatIsShopAm() {
               imageSrc={"/images/bitcoin2.png"}
               imageAlt="bitcoin"
               text="Swift delivery across Nigeria. Reliable logistics at your doorstep."
-              position="bottom-0 right-0 translate-y-5 translate-x-5"
+              position="bottom-0 right-6 md:right-0 translate-y-5 translate-x-5"
               delay={2000}
               index={2}
             />
@@ -298,7 +263,7 @@ export default function WhatIsShopAm() {
               transition={{ duration: 1, ease: "easeOut" }}
             ></motion.div>
             <motion.h1
-              className="relative text-2xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-8 lg:mb-10 leading-tight"
+              className="relative text-[28px] sm:text-[36px] lg:text-4xl font-bold text-gray-900 mb-4 md:mb-6 leading-tight"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
@@ -307,7 +272,7 @@ export default function WhatIsShopAm() {
             </motion.h1>
 
             <motion.div
-              className="space-y-4 lg:space-y-6 mb-8 lg:mb-12 max-w-2xl mx-auto lg:ml-auto lg:mr-0 font-sans"
+              className="space-y-2 md:space-y-4 mb-4 md:mb-8 max-w-2xl mx-auto lg:ml-auto lg:mr-0 font-sans"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.7 }}
@@ -331,7 +296,7 @@ export default function WhatIsShopAm() {
             </motion.div>
 
             <motion.div
-              className="flex gap-2 md:gap-4 justify-center lg:justify-end items-center"
+              className="flex gap-2 md:gap-4 justify-center lg:justify-end items-center -mb-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.2 }}
@@ -343,9 +308,9 @@ export default function WhatIsShopAm() {
                 <Button
                   variant="ghost"
                   size="lg"
-                  className="group w-full sm:w-auto text-[#ED8123] hover:text-[#ED8123]/90 whitespace-nowrap"
+                  className="group w-full sm:w-auto text-[#ED8123] hover:text-[#ED8123]/90 whitespace-nowrap flex items-center"
                 >
-                  <span className="mr-2 text-xs md:text-base text-[#ED8123] hover:text-[#ED8123]/90 ">
+                  <span className="mr-2 text-xs md:text-sm text-[#ED8123] hover:text-[#ED8123]/90 ">
                     Read More
                   </span>
                   <motion.svg
@@ -370,7 +335,7 @@ export default function WhatIsShopAm() {
                 <Button
                   variant="default"
                   // size="lg"
-                  className="w-full text-xs md:px-6 md:text-base sm:w-auto bg-[#ED8123] hover:bg-[#ED8123]/90 whitespace-nowrap"
+                  className="w-full text-xs md:text-sm md:px-6 sm:w-auto bg-[#ED8123] hover:bg-[#ED8123]/90 whitespace-nowrap"
                 >
                   Get ShopAm Now
                 </Button>

@@ -1,6 +1,10 @@
+"use client";
+
 import React, { memo } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion, useReducedMotion, Variants } from "framer-motion";
+import { useScrollAnimation } from "./hooks/useScrollAnimation";
 
 // TypeScript interfaces
 interface HeroSectionProps {
@@ -17,30 +21,134 @@ interface AppStoreButtonProps {
 interface StatItemProps {
   value: string;
   label: string;
+  symbol: string;
 }
+
+// Animation variants for consistent patterns
+const fadeInUpVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 60,
+    scale: 0.95,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
+
+const fadeInLeftVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    x: -50,
+  },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.8,
+      ease: "easeOut",
+    },
+  },
+};
+
+const staggerContainerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const staggerItemVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 30,
+    scale: 0.9,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+};
+
+const buttonHoverVariants: Variants = {
+  initial: {
+    scale: 1,
+    transition: {
+      duration: 0.2,
+      ease: "easeOut",
+    },
+  },
+  hover: {
+    scale: 1.05,
+    transition: {
+      duration: 0.2,
+      ease: "easeOut",
+    },
+  },
+  tap: {
+    scale: 0.98,
+    transition: {
+      duration: 0.1,
+      ease: "easeOut",
+    },
+  },
+};
+
+const imageVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.8,
+    y: 40,
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      duration: 1,
+      delay: 0.3,
+      ease: "easeOut",
+    },
+  },
+};
 
 // Constants for better maintainability
 const APP_STORE_CONFIG = {
   href: "#",
-  iconSize: "w-8 h-8",
-  containerPadding: "px-2 md:px-6",
-  buttonPadding: "py-1 md:py-3.5",
+  iconSize: "w-7 h-7 md:w-8 md:h-8",
+  containerPadding: "px-3 md:px-4",
+  buttonPadding: "py-1 md:py-2",
   textSizes: {
-    small: "text-[8px] md:text-[10px]",
-    large: "text-xs md:text-[21px]",
+    small: "text-[7px] md:text-[9px]",
+    large: "text-xs md:text-sm",
   },
-  margin: "ml-1 md:ml-3",
+  margin: "ml-2",
 };
 
 const STATS_CONFIG = [
-  { value: "5,000+", label: "Active users" },
-  { value: "95%", label: "On-Time Delivery Rate" },
-  { value: "100+", label: "Parcel Shops Nationwide" },
+  { value: "5,000", label: "Active users", symbol: "+" },
+  { value: "95", label: "On-Time Delivery Rate", symbol: "%" },
+  { value: "100", label: "Parcel Shops Nationwide", symbol: "+" },
 ];
 
 const HEADING_CONFIG = {
   desktop: {
-    size: "text-[42px] sm:text-[56px] lg:text-6xl",
+    size: "text-[28px] sm:text-[36px] lg:text-4xl",
     lines: ["See It Live, Buy", "With Confidence,", "Delivered Safe"],
   },
   mobile: {
@@ -50,7 +158,7 @@ const HEADING_CONFIG = {
 
 const SUBHEADING_CONFIG = {
   desktop: {
-    size: "text-base sm:text-lg lg:text-2xl",
+    size: "text-sm sm:text-base lg:text-lg",
     text: "Experience the future of e-commerce in Nigeria with",
     lines: ["livestream shopping, secure payments, and verified", "products."],
   },
@@ -95,27 +203,39 @@ GooglePlayIcon.displayName = "GooglePlayIcon";
 
 // Sub-components for better organization
 const Heading = memo(() => (
-  <>
-    <h1 className="hidden md:block text-[42px] sm:text-[56px] lg:text-6xl font-black leading-[1.1] tracking-tight text-black mb-4 font-termina">
+  <motion.div variants={fadeInUpVariants} initial="hidden" animate="visible">
+    <h1 className="hidden md:block text-[28px] sm:text-[36px] lg:text-4xl font-black leading-snug tracking-tight text-black mb-3 font-termina">
       {HEADING_CONFIG.desktop.lines.map((line, index) => (
-        <React.Fragment key={index}>
+        <motion.span
+          key={index}
+          className="block"
+          variants={staggerItemVariants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: index * 0.2 }}
+        >
           {line}
           {index < HEADING_CONFIG.desktop.lines.length - 1 && <br />}
-        </React.Fragment>
+        </motion.span>
       ))}
     </h1>
 
-    <h1 className="md:hidden w-full text-center text-3xl font-black leading-[1.1] tracking-tight px-10">
+    <h1 className="md:hidden w-full text-center text-3xl font-black leading-12 tracking-tight px-8">
       {HEADING_CONFIG.mobile.text}
     </h1>
-  </>
+  </motion.div>
 ));
 
 Heading.displayName = "Heading";
 
 const Subheading = memo(() => (
-  <>
-    <p className="hidden md:block text-base sm:text-lg lg:text-2xl text-gray-800 mb-8 sm:mb-10 lg:mb-12 leading-relaxed font-sans">
+  <motion.div
+    variants={fadeInUpVariants}
+    initial="hidden"
+    animate="visible"
+    transition={{ delay: 0.3 }}
+  >
+    <p className="hidden md:block text-sm sm:text-base lg:text-lg text-gray-800 mb-6 leading-relaxed font-sans">
       {SUBHEADING_CONFIG.desktop.text}
       <br className="hidden sm:block" />
       {SUBHEADING_CONFIG.desktop.lines.map((line, index) => (
@@ -128,132 +248,252 @@ const Subheading = memo(() => (
       ))}
     </p>
 
-    <p className="md:hidden px-10 text-center font-medium font-sans mt-2">
+    <p className="md:hidden px-8 text-center text-sm font-medium leading-relaxed font-sans mt-2">
       {SUBHEADING_CONFIG.mobile.text}
     </p>
-  </>
+  </motion.div>
 ));
 
 Subheading.displayName = "Subheading";
 
 const AppStoreButton = memo<AppStoreButtonProps>(
   ({ href, ariaLabel, children, className }) => (
-    <Link
-      href={href}
-      className={`inline-flex items-center justify-center bg-black text-white rounded-xl ${
-        APP_STORE_CONFIG.containerPadding
-      } ${
-        APP_STORE_CONFIG.buttonPadding
-      } hover:bg-gray-900 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black ${
-        className || ""
-      }`}
-      aria-label={ariaLabel}
+    <motion.div
+      variants={buttonHoverVariants}
+      initial="initial"
+      whileHover="hover"
+      whileTap="tap"
     >
-      {children}
-    </Link>
+      <Link
+        href={href}
+        className={`md:flex-1 inline-flex items-center justify-center bg-black text-white rounded-md md:rounded-xl ${
+          APP_STORE_CONFIG.containerPadding
+        } ${
+          APP_STORE_CONFIG.buttonPadding
+        } hover:bg-gray-900 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black ${
+          className || ""
+        }`}
+        aria-label={ariaLabel}
+      >
+        {children}
+      </Link>
+    </motion.div>
   )
 );
 
 AppStoreButton.displayName = "AppStoreButton";
 
-const AppStoreButtons = memo(() => (
-  <div className="mt-5 md:mt-0 flex justify-center items gap-2 md:gap-4 mb-12 lg:mb-20 px-4 md:px-0">
-    <AppStoreButton
-      href={APP_STORE_CONFIG.href}
-      ariaLabel="Download on the App Store"
-    >
-      <AppStoreIcon />
-      <div className={APP_STORE_CONFIG.margin}>
-        <div
-          className={`${APP_STORE_CONFIG.textSizes.small} font-normal leading-tight`}
-        >
-          Download on the
-        </div>
-        <div
-          className={`${APP_STORE_CONFIG.textSizes.large} md:font-semibold leading-tight -mt-0.5`}
-        >
-          App Store
-        </div>
-      </div>
-    </AppStoreButton>
+const AppStoreButtons = memo(() => {
+  const { ref, isVisible } = useScrollAnimation(0.2, "-50px");
 
-    <AppStoreButton
-      href={APP_STORE_CONFIG.href}
-      ariaLabel="Get it on Google Play"
+  return (
+    <motion.div
+      ref={ref as React.RefObject<HTMLDivElement>}
+      className="md:max-w-7/10 mt-4 md:mt-0 flex justify-center items gap-2 md:gap-3 mb-8 px-4 md:px-0"
+      variants={staggerContainerVariants}
+      initial="hidden"
+      animate={isVisible ? "visible" : "hidden"}
     >
-      <GooglePlayIcon />
-      <div className={APP_STORE_CONFIG.margin}>
-        <div
-          className={`${APP_STORE_CONFIG.textSizes.small} font-normal leading-tight`}
-        >
-          GET IT ON
+      <AppStoreButton
+        href={APP_STORE_CONFIG.href}
+        ariaLabel="Download on the App Store"
+      >
+        <AppStoreIcon />
+        <div className={APP_STORE_CONFIG.margin}>
+          <div
+            className={`${APP_STORE_CONFIG.textSizes.small} font-normal leading-tight`}
+          >
+            Download on the
+          </div>
+          <div
+            className={`${APP_STORE_CONFIG.textSizes.large} md:font-semibold leading-tight -mt-0.5`}
+          >
+            App Store
+          </div>
         </div>
-        <div
-          className={`${APP_STORE_CONFIG.textSizes.large} md:font-semibold leading-tight -mt-0.5`}
-        >
-          Google Play
+      </AppStoreButton>
+
+      <AppStoreButton
+        href={APP_STORE_CONFIG.href}
+        ariaLabel="Get it on Google Play"
+      >
+        <GooglePlayIcon />
+        <div className={APP_STORE_CONFIG.margin}>
+          <div
+            className={`${APP_STORE_CONFIG.textSizes.small} font-normal leading-tight`}
+          >
+            GET IT ON
+          </div>
+          <div
+            className={`${APP_STORE_CONFIG.textSizes.large} md:font-semibold leading-tight -mt-0.5`}
+          >
+            Google Play
+          </div>
         </div>
-      </div>
-    </AppStoreButton>
-  </div>
-));
+      </AppStoreButton>
+    </motion.div>
+  );
+});
 
 AppStoreButtons.displayName = "AppStoreButtons";
 
-const StatItem = memo<StatItemProps>(({ value, label }) => (
-  <div className="flex flex-col items-center md:items-start">
-    <div className="text-xs md:text-xl font-medium text-black">{value}</div>
-    <div className="text-[6.5px] md:text-sm text-gray-600">{label}</div>
-  </div>
-));
+// Animated Counter Component
+const AnimatedCounter = memo<{ value: string; suffix?: string }>(
+  ({ value, suffix = "" }) => {
+    const [count, setCount] = React.useState(0);
+    const { ref, isVisible } = useScrollAnimation(0.3, "-50px");
+    const shouldReduceMotion = useReducedMotion();
+
+    React.useEffect(() => {
+      if (!isVisible || shouldReduceMotion) {
+        setCount(parseInt(value.replace(/,/g, "")) || 0);
+        return;
+      }
+
+      const targetValue = parseInt(value.replace(/,/g, "")) || 0;
+      const duration = 2000; // 2 seconds
+      const steps = 60;
+      const stepValue = targetValue / steps;
+      const stepDuration = duration / steps;
+
+      let currentCount = 0;
+      const timer = setInterval(() => {
+        currentCount += stepValue;
+        if (currentCount >= targetValue) {
+          setCount(targetValue);
+          clearInterval(timer);
+        } else {
+          setCount(Math.floor(currentCount));
+        }
+      }, stepDuration);
+
+      return () => clearInterval(timer);
+    }, [isVisible, value, shouldReduceMotion]);
+
+    return (
+      <motion.span
+        ref={ref as React.RefObject<HTMLSpanElement>}
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={
+          isVisible ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }
+        }
+        transition={{ duration: 0.5 }}
+      >
+        {count.toLocaleString()}
+        {suffix}
+      </motion.span>
+    );
+  }
+);
+
+AnimatedCounter.displayName = "AnimatedCounter";
+
+const StatItem = memo<StatItemProps>(({ value, label, symbol }) => {
+  const suffix = symbol === "+" || symbol === "%" ? symbol : "";
+  const numericValue = value.replace(/[+%]/g, "");
+
+  return (
+    <motion.div
+      className="flex flex-col items-center md:items-start"
+      variants={staggerItemVariants}
+    >
+      <div className="text-xs md:text-lg font-medium text-black flex items-center">
+        <AnimatedCounter value={numericValue} suffix={suffix} />
+      </div>
+      <div className="text-[6px] md:text-xs text-gray-600">{label}</div>
+    </motion.div>
+  );
+});
 
 StatItem.displayName = "StatItem";
 
-const Stats = memo(() => (
-  <div className="flex justify-center md:justify-start gap-3 md:gap-6">
-    {STATS_CONFIG.map((stat, index) => (
-      <React.Fragment key={stat.label}>
-        <StatItem value={stat.value} label={stat.label} />
-        {index < STATS_CONFIG.length - 1 && (
-          <div className="py-1">
-            <div className="border-r h-full" />
-          </div>
-        )}
-      </React.Fragment>
-    ))}
-  </div>
-));
+const Stats = memo(() => {
+  const { ref, isVisible } = useScrollAnimation(0.3, "-50px");
+
+  return (
+    <motion.div
+      ref={ref as React.RefObject<HTMLDivElement>}
+      className="flex justify-center md:justify-start gap-5 md:gap-5"
+      variants={staggerContainerVariants}
+      initial="hidden"
+      animate={isVisible ? "visible" : "hidden"}
+    >
+      {STATS_CONFIG.map((stat, index) => (
+        <React.Fragment key={stat.label}>
+          <StatItem
+            value={stat.value}
+            label={stat.label}
+            symbol={stat.symbol}
+          />
+          {index < STATS_CONFIG.length - 1 && (
+            <motion.div className="py-1" variants={staggerItemVariants}>
+              <div className="border-r border-gray-500 h-full" />
+            </motion.div>
+          )}
+        </React.Fragment>
+      ))}
+    </motion.div>
+  );
+});
 
 Stats.displayName = "Stats";
 
-const HeroImage = memo(() => (
-  <div className="flex-1 relative h-full md:pt-6">
-    {/* Blurred circle goes first so it's under */}
-    <div className="hidden md:block absolute -bottom-25 left-3/5 w-100 h-100 bg-black/95 rounded-full blur-3xl -translate-x-1/2 z-10" />
+const HeroImage = memo(() => {
+  const { ref, isVisible } = useScrollAnimation(0.2, "-100px");
 
-    {/* Hero image */}
-    <Image
-      src="/images/hero.png"
-      width={1000}
-      height={800}
-      alt="hero image"
-      className="w-full h-full relative z-10"
-    />
-  </div>
-));
+  return (
+    <motion.div
+      ref={ref as React.RefObject<HTMLDivElement>}
+      className="z-10 flex-1 max-w-xl md:-mt-10 relative h-full"
+      variants={imageVariants}
+      initial="hidden"
+      animate={isVisible ? "visible" : "hidden"}
+    >
+      {/* Blurred circle goes first so it's under */}
+      <motion.div
+        className="hidden md:block absolute -bottom-20 left-3/5 w-80 h-80 bg-black/95 rounded-full blur-2xl -translate-x-1/2 z-10"
+        animate={
+          isVisible
+            ? {
+                opacity: [0.3, 0.6, 0.3],
+                scale: [1, 1.1, 1],
+              }
+            : {}
+        }
+        transition={{
+          duration: 4,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      />
+
+      {/* Hero image */}
+      <Image
+        src="/images/hero.png"
+        width={600}
+        height={480}
+        alt="hero image"
+        className="w-full h-auto relative z-10 mx-auto md:m-0"
+      />
+    </motion.div>
+  );
+});
 
 HeroImage.displayName = "HeroImage";
 
 // Main component
 const HeroSection = memo<HeroSectionProps>(({ className }) => {
   return (
-    <div
-      className={`flex flex-col items-center md:flex-row pb-20 w-full ${
+    <motion.div
+      className={`flex flex-col items-center md:flex-row md:justify-center pb-16 w-full ${
         className || ""
       }`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
     >
       {/* Hero Section */}
-      <section className="w-full md:w-auto px-4 sm:pr-0 sm:pl-6 lg:pl-8 pt-12 sm:pt-16 lg:pt-20 pb-10 sm:pb-20 lg:pb-24">
+      <section className="w-full md:w-auto px-4 sm:pr-0 sm:pl-6 lg:pl-8 pt-8 sm:pt-12 lg:pt-16 pb-8 sm:pb-16 lg:pb-20">
         <div className="mx-auto w-full">
           <Heading />
           <Subheading />
@@ -262,7 +502,7 @@ const HeroSection = memo<HeroSectionProps>(({ className }) => {
         </div>
       </section>
       <HeroImage />
-    </div>
+    </motion.div>
   );
 });
 

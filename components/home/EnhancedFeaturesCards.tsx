@@ -51,7 +51,7 @@ export default function EnhancedFeaturesCards() {
   return (
     <div
       ref={ref as React.RefObject<HTMLDivElement>}
-      className="py-12 px-4 sm:px-6 lg:px-8"
+      className="py-4 md:py-8 px-4 sm:px-6 lg:px-8"
     >
       <div className="mx-auto">
         <motion.div
@@ -62,8 +62,8 @@ export default function EnhancedFeaturesCards() {
                   visible: {
                     opacity: 1,
                     transition: {
-                      staggerChildren: 0.08,
-                      delayChildren: 0.1,
+                      staggerChildren: 0.05,
+                      delayChildren: 0.05,
                     },
                   },
                 }
@@ -73,7 +73,7 @@ export default function EnhancedFeaturesCards() {
           animate={
             shouldReduceMotion ? "visible" : isVisible ? "visible" : "hidden"
           }
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"
         >
           {features.map((feature, index) => (
             <EnhancedFeatureCard

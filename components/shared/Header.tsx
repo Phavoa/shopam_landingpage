@@ -33,19 +33,19 @@ export default function ShopAmHeader() {
   return (
     <header className="fixed top-0 left-0 w-full z-50 border-b border-gray-200/90 bg-[#F0F8FF]/50 backdrop-blur supports-[backdrop-filter]:bg-[#F0F8FF]/50">
       <div className="md:container mx-auto px-4 lg:px-8">
-        <div className="flex items-center justify-between h-14 md:h-24 lg:h-28">
+        <div className="flex items-center justify-between h-12 md:h-18 lg:h-22">
           {/* Logo */}
-          <div className="flex-shrink-0">
+          <Link href="/" className="flex-shrink-0">
             <Image
               src="/images/shopAm_logo.png"
               width={300}
               height={100}
               alt="shopAm Logo"
-              className="w-22 h-6 md:w-56 md:h-16"
+              className="w-22 h-6 md:w-52 md:h-14"
               priority
               loading="eager"
             />
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <nav
@@ -53,20 +53,20 @@ export default function ShopAmHeader() {
             aria-label="Main navigation"
           >
             {memoizedNavItems.map((item) => (
-              <a
+              <Link
                 key={item.label}
                 href={item.href}
-                className="text-base font-semibold text-gray-800 hover:text-green-600 transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-green-600 after:transition-all after:duration-300 hover:after:w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 rounded"
+                className="text-sm font-semibold text-gray-800 hover:text-green-600 transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-green-600 after:transition-all after:duration-300 hover:after:w-full focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 rounded"
                 aria-label={`Navigate to ${item.label}`}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
           {/* CTA Button - Desktop */}
           <Button
-            className="hidden lg:flex bg-[#ED8123] hover:bg-[#ED8123]/90 text-white font-bold px-8 py-6 rounded-lg text-base shadow-lg shadow-[#ED8123]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[#ED8123]/40 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#ED8123] focus:ring-opacity-50"
+            className="hidden lg:flex bg-[#ED8123] hover:bg-[#ED8123]/90 text-white font-bold px-8 py-6 rounded-lg text-sm shadow-lg shadow-[#ED8123]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[#ED8123]/40 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#ED8123] focus:ring-opacity-50"
             aria-label="Download the ShopAm app"
           >
             Download App
@@ -133,11 +133,11 @@ export default function ShopAmHeader() {
                   {/* Download App Button - Mobile */}
                   <div className="mt-8 pt-6 border-t border-gray-200/50 px-4">
                     <Button
-                      className="w-full bg-[#ED8123] hover:bg-[#ED8123]/90 text-white font-bold py-6 rounded-lg text-sm shadow-lg shadow-[#ED8123]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[#ED8123]/40 focus:outline-none focus:ring-2 focus:ring-[#ED8123] focus:ring-opacity-50 font-sans"
+                      className="w-full bg-[#ED8123] hover:bg-[#ED8123]/90 text-white font-bold py-6 rounded-lg text-xs shadow-lg shadow-[#ED8123]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[#ED8123]/40 focus:outline-none focus:ring-2 focus:ring-[#ED8123] focus:ring-opacity-50 font-sans"
                       onClick={handleLinkClick}
                       aria-label="Download the ShopAm app"
                     >
-                      Download App
+                      <span className="text-sm">Download App</span>
                     </Button>
                   </div>
                 </div>

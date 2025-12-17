@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { useScrollAnimation } from "./hooks/useScrollAnimation";
+import Link from "next/link";
 
 // Enhanced Accordion Component with Smooth Animations
 const AccordionItem = ({
@@ -38,7 +39,7 @@ const AccordionItem = ({
     >
       <motion.button
         onClick={onToggle}
-        className="w-full py-5 px-0 flex items-center justify-between text-left group"
+        className="w-full py-3 px-0 flex items-center justify-between text-left group"
         whileHover={
           shouldReduceMotion
             ? {}
@@ -48,7 +49,7 @@ const AccordionItem = ({
         transition={{ duration: 0.2 }}
       >
         <motion.span
-          className="text-base font-medium text-gray-900 pr-4 group-hover:text-gray-700"
+          className="text-sm font-medium text-gray-900 pr-4 group-hover:text-gray-700"
           whileHover={shouldReduceMotion ? {} : { x: 2 }}
           transition={{ duration: 0.2 }}
         >
@@ -59,7 +60,7 @@ const AccordionItem = ({
           transition={{ duration: 0.3, ease: "easeInOut" }}
         >
           <ChevronDown
-            className={`w-5 h-5 text-gray-600 flex-shrink-0 group-hover:text-gray-700 ${
+            className={`w-4 h-4 text-gray-600 flex-shrink-0 group-hover:text-gray-700 ${
               isOpen ? "text-[#ED8123]" : ""
             }`}
           />
@@ -96,7 +97,7 @@ const AccordionItem = ({
             className="overflow-hidden"
           >
             <motion.div
-              className="pb-5 px-0 text-gray-600 text-sm leading-relaxed"
+              className="pb-3 px-0 text-gray-600 text-xs leading-relaxed"
               initial={shouldReduceMotion ? {} : { opacity: 0, y: -10 }}
               animate={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
               exit={shouldReduceMotion ? {} : { opacity: 0, y: -10 }}
@@ -183,7 +184,7 @@ export default function ShopAmFAQPage() {
       {!shouldReduceMotion && (
         <>
           <motion.div
-            className="absolute top-20 right-10 w-32 h-32 bg-gradient-to-br from-orange-100 to-orange-200 rounded-full opacity-30"
+            className="absolute top-20 right-10 w-20 h-20 bg-gradient-to-br from-orange-100 to-orange-200 rounded-full opacity-30"
             animate={{
               y: [0, -20, 0],
               scale: [1, 1.1, 1],
@@ -195,7 +196,7 @@ export default function ShopAmFAQPage() {
             }}
           />
           <motion.div
-            className="absolute bottom-32 left-10 w-24 h-24 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full opacity-20"
+            className="absolute bottom-32 left-10 w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full opacity-20"
             animate={{
               y: [0, 15, 0],
               x: [0, 10, 0],
@@ -211,8 +212,8 @@ export default function ShopAmFAQPage() {
       )}
 
       {/* FAQ Section */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 py-12 lg:py-20 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 pb-8 md:py-8 lg:py-12 relative z-10">
+        <div className="grid md:grid-cols-2 md:gap-8">
           {/* Left Column - Title and CTA */}
           <motion.div
             ref={headerRef as React.RefObject<HTMLDivElement>}
@@ -230,14 +231,14 @@ export default function ShopAmFAQPage() {
             }
           >
             <motion.h1
-              className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-6"
+              className="text-center md:text-start text-2xl lg:text-3xl font-bold text-gray-900 leading-tight mb-4"
               whileHover={shouldReduceMotion ? {} : { x: 2 }}
               transition={{ duration: 0.2 }}
             >
               Common Questions About ShopAm
             </motion.h1>
             <motion.p
-              className="text-gray-600 text-base mb-8 leading-relaxed"
+              className="text-gray-600 text-sm mb-6 leading-relaxed"
               initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
               animate={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
               transition={
@@ -249,7 +250,7 @@ export default function ShopAmFAQPage() {
             </motion.p>
 
             <motion.div
-              className="mt-12"
+              className="mt-8 hidden md:block"
               initial={shouldReduceMotion ? {} : { opacity: 0, y: 15 }}
               animate={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
               transition={
@@ -257,21 +258,118 @@ export default function ShopAmFAQPage() {
               }
             >
               <motion.p
-                className="text-sm font-semibold text-gray-900 mb-3"
+                className="text-xs font-semibold text-gray-900 mb-2"
                 whileHover={shouldReduceMotion ? {} : { x: 2 }}
                 transition={{ duration: 0.2 }}
               >
                 Still have a question in mind?
               </motion.p>
               <motion.p
-                className="text-sm text-gray-600 mb-6"
+                className="text-xs text-gray-600 mb-4"
+                whileHover={shouldReduceMotion ? {} : { x: 2 }}
+                transition={{ duration: 0.2 }}
+              >
+                Contact us if you have any other questions.
+              </motion.p>
+              <Link href="/contant-us">
+                <motion.button
+                  className="border-2 border-[#ED8123]/90 text-[#ED8123]/90 px-6 py-2 rounded-lg font-semibold hover:bg-orange-50 relative overflow-hidden"
+                  whileHover={
+                    shouldReduceMotion
+                      ? {}
+                      : {
+                          scale: 1.02,
+                          y: -2,
+                          boxShadow: "0 10px 25px -5px rgba(237, 129, 35, 0.1)",
+                          transition: { duration: 0.3, ease: "easeOut" },
+                        }
+                  }
+                  whileTap={shouldReduceMotion ? {} : { scale: 0.98 }}
+                >
+                  <motion.span
+                    className="relative z-10"
+                    whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    Contact Us
+                  </motion.span>
+                  {!shouldReduceMotion && (
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-orange-600/10"
+                      initial={{ x: "-100%" }}
+                      whileHover={{ x: "100%" }}
+                      transition={{ duration: 0.6 }}
+                    />
+                  )}
+                </motion.button>
+              </Link>
+            </motion.div>
+          </motion.div>
+
+          {/* Right Column - Accordion */}
+          <motion.div
+            ref={accordionRef as React.RefObject<HTMLDivElement>}
+            className="lg:pl-8"
+            initial={shouldReduceMotion ? {} : { opacity: 0, x: 20 }}
+            animate={
+              shouldReduceMotion
+                ? {}
+                : accordionVisible
+                ? { opacity: 1, x: 0 }
+                : { opacity: 0, x: 20 }
+            }
+            transition={
+              shouldReduceMotion
+                ? {}
+                : {
+                    duration: 0.6,
+                    ease: "easeOut",
+                    staggerChildren: 0.1,
+                  }
+            }
+          >
+            <motion.div
+              className="bg-gray-50/30  md:p-4 backdrop-blur-sm border-t"
+              whileHover={shouldReduceMotion ? {} : { y: -2 }}
+              transition={{ duration: 0.3 }}
+            >
+              {faqs.map((faq, index) => (
+                <AccordionItem
+                  key={index}
+                  question={faq.question}
+                  answer={faq.answer}
+                  isOpen={openIndex === index}
+                  onToggle={() =>
+                    setOpenIndex(openIndex === index ? -1 : index)
+                  }
+                  index={index}
+                />
+              ))}
+            </motion.div>
+            <motion.div
+              className="mt-8 md:hidden"
+              initial={shouldReduceMotion ? {} : { opacity: 0, y: 15 }}
+              animate={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
+              transition={
+                shouldReduceMotion ? {} : { duration: 0.5, delay: 0.4 }
+              }
+            >
+              <motion.p
+                className="text-xs font-semibold text-gray-900 mb-2"
+                whileHover={shouldReduceMotion ? {} : { x: 2 }}
+                transition={{ duration: 0.2 }}
+              >
+                Still have a question in mind?
+              </motion.p>
+              <motion.p
+                className="text-xs text-gray-600 mb-4"
                 whileHover={shouldReduceMotion ? {} : { x: 2 }}
                 transition={{ duration: 0.2 }}
               >
                 Contact us if you have any other questions.
               </motion.p>
               <motion.button
-                className="border-2 border-[#ED8123]/90 text-[#ED8123]/90 px-8 py-3 rounded-lg font-semibold hover:bg-orange-50 relative overflow-hidden"
+                className="border-1 border-[#ED8123]/90 text-[#ED8123]/90 px-6 py-2 rounded-lg font-semibold hover:bg-orange-50 relative overflow-hidden w-full"
                 whileHover={
                   shouldReduceMotion
                     ? {}
@@ -300,48 +398,6 @@ export default function ShopAmFAQPage() {
                   />
                 )}
               </motion.button>
-            </motion.div>
-          </motion.div>
-
-          {/* Right Column - Accordion */}
-          <motion.div
-            ref={accordionRef as React.RefObject<HTMLDivElement>}
-            className="lg:pl-8"
-            initial={shouldReduceMotion ? {} : { opacity: 0, x: 20 }}
-            animate={
-              shouldReduceMotion
-                ? {}
-                : accordionVisible
-                ? { opacity: 1, x: 0 }
-                : { opacity: 0, x: 20 }
-            }
-            transition={
-              shouldReduceMotion
-                ? {}
-                : {
-                    duration: 0.6,
-                    ease: "easeOut",
-                    staggerChildren: 0.1,
-                  }
-            }
-          >
-            <motion.div
-              className="bg-gray-50/30 rounded-2xl p-6 backdrop-blur-sm"
-              whileHover={shouldReduceMotion ? {} : { y: -2 }}
-              transition={{ duration: 0.3 }}
-            >
-              {faqs.map((faq, index) => (
-                <AccordionItem
-                  key={index}
-                  question={faq.question}
-                  answer={faq.answer}
-                  isOpen={openIndex === index}
-                  onToggle={() =>
-                    setOpenIndex(openIndex === index ? -1 : index)
-                  }
-                  index={index}
-                />
-              ))}
             </motion.div>
           </motion.div>
         </div>

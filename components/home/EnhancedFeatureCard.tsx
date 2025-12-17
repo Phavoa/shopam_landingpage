@@ -38,7 +38,7 @@ const cardVariants = {
     y: 0,
     scale: 1,
     transition: {
-      duration: 0.4,
+      duration: 0.2,
       ease: easing.smooth,
     },
   },
@@ -46,7 +46,7 @@ const cardVariants = {
     y: -6,
     scale: 1.02,
     transition: {
-      duration: 0.2,
+      duration: 0.15,
       ease: easing.smooth,
     },
   },
@@ -57,7 +57,7 @@ const microInteractionVariants = {
   hover: {
     scale: [1, 1.03, 1],
     transition: {
-      duration: 0.2,
+      duration: 0.1,
       ease: easing.easeInOut,
     },
   },
@@ -88,7 +88,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
           rotate: 0,
           transition: {
             delay: index * 0.05 + 0.2,
-            duration: 0.4,
+            duration: 0.25,
             ease: easing.smooth,
           },
         },
@@ -96,7 +96,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
           scale: 1.05,
           rotate: 3,
           transition: {
-            duration: 0.2,
+            duration: 0.1,
             ease: easing.easeOut,
           },
         },
@@ -108,7 +108,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
     animate: {
       opacity: isHovered ? 0.08 : 0,
       scale: isHovered ? 1.1 : 0.9,
-      transition: { duration: 0.2 },
+      transition: { duration: 0.1 },
     },
   };
 
@@ -131,14 +131,10 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
 
       <motion.div
         className={`
-          group relative p-6 border border-gray-200 rounded-3xl bg-white 
-          transition-all duration-200 cursor-pointer overflow-hidden
-          ${
-            isHovered
-              ? "shadow-xl border-blue-200"
-              : "shadow-sm hover:shadow-md"
-          }
-          ${shouldReduceMotion ? "" : "hover:-translate-y-1"}
+          group relative px-4 py-6 border border-gray-200 rounded-3xl bg-white
+          transition-all duration-150 cursor-pointer overflow-hidden will-change-transform
+          ${isHovered ? "shadow-xl border-blue-200" : "hover:shadow"}
+          ${shouldReduceMotion ? "" : "hover:-translate-y-0.5"}
         `}
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
@@ -153,16 +149,16 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
                 ? "radial-gradient(circle at center, #3B82F6 0%, transparent 70%)"
                 : "transparent",
             }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.1 }}
           />
         )}
 
         {/* Icon container with enhanced animations */}
-        <motion.div className="mb-4 relative" {...iconAnimation}>
+        <motion.div className="mb-3 relative" {...iconAnimation}>
           <div
             className={`
-            w-16 h-16 rounded-full border-2 flex items-center justify-center
-            transition-all duration-200 relative overflow-hidden
+            w-15 h-15 rounded-full border-2 flex items-center justify-center
+            transition-all duration-150 relative overflow-hidden will-change-transform
             ${
               isHovered
                 ? "border-blue-300 bg-blue-50 shadow-md"
@@ -176,7 +172,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
                 className="absolute inset-0 rounded-full bg-blue-400/15"
                 initial={{ scale: 0, opacity: 1 }}
                 animate={{ scale: 1.5, opacity: 0 }}
-                transition={{ duration: 0.4, ease: easing.easeOut }}
+                transition={{ duration: 0.2, ease: easing.easeOut }}
               />
             )}
 
@@ -190,9 +186,9 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
               <Image
                 src={icon}
                 alt={title}
-                width={40}
-                height={40}
-                className="transition-transform duration-200"
+                width={28}
+                height={28}
+                className="transition-transform duration-150 will-change-transform"
                 style={{
                   transform: isHovered ? "scale(1.05)" : "scale(1)",
                 }}
@@ -207,13 +203,13 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
           animate={{
             opacity: 1,
             y: 0,
-            transition: { delay: index * 0.05 + 0.3, duration: 0.3 },
+            transition: { delay: index * 0.03 + 0.15, duration: 0.15 },
           }}
         >
           <motion.h3
             className="text-xl font-bold text-gray-900 mb-1 relative"
             whileHover={shouldReduceMotion ? undefined : { x: 2 }}
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0.1 }}
           >
             {title}
             {/* Underline animation on hover */}
@@ -222,7 +218,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
                 className="absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-600"
                 initial={{ width: 0 }}
                 whileHover={{ width: "100%" }}
-                transition={{ duration: 0.2, ease: easing.easeOut }}
+                transition={{ duration: 0.1, ease: easing.easeOut }}
               />
             )}
           </motion.h3>
@@ -236,7 +232,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
                     color: isHovered ? "#374151" : "#6B7280",
                   }
             }
-            transition={{ duration: 0.15 }}
+            transition={{ duration: 0.08 }}
           >
             {description}
           </motion.p>
@@ -249,7 +245,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
             animate={{
               borderColor: isHovered ? "#3B82F6" : "transparent",
             }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.1 }}
             style={{
               background: isHovered
                 ? "linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(147, 51, 234, 0.05) 100%)"
