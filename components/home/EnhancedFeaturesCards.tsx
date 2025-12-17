@@ -53,7 +53,6 @@ export default function EnhancedFeaturesCards() {
               icon={feature.icon}
               title={feature.title}
               description={feature.description}
-              index={index}
             />
           ))}
         </div>

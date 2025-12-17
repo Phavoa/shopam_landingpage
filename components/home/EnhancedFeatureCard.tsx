@@ -8,14 +8,12 @@ interface FeatureCardProps {
   icon: string;
   title: string;
   description: string;
-  index: number;
 }
 
 const FeatureCard: React.FC<FeatureCardProps> = ({
   icon,
   title,
   description,
-  index,
 }) => {
   return (
     <Card className="relative px-4 py-6 border border-gray-200 rounded-3xl bg-white shadow-sm cursor-pointer">

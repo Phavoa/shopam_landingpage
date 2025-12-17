@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { Instagram } from "lucide-react";
 import { FaTiktok } from "react-icons/fa";
 import { X } from "lucide-react";
 import Image from "next/image";

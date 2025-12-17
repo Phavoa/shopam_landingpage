@@ -3,7 +3,6 @@ import Features from "@/components/home/Features";
 import HeroSection from "@/components/home/HeroSection";
 import ShopAmAgents from "@/components/home/ShopAmAgents";
 import WhatIsShopAm from "@/components/home/whatIsShopAm";
-import ShopAmHeader from "@/components/shared/Header";
 import Image from "next/image";
 
 export default function Home() {

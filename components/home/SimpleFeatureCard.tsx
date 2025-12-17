@@ -8,14 +8,12 @@ interface FeatureCardProps {
   icon: string;
   title: string;
   description: string;
-  index: number;
 }
 
 const SimpleFeatureCard: React.FC<FeatureCardProps> = ({
   icon,
   title,
   description,
-  index,
 }) => {
   return (
     <div className="relative">

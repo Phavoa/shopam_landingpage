@@ -32,7 +32,7 @@ export const useSmoothScroll = () => {
         window.scrollTo(0, offsetPosition);
       } else {
         // Smooth scroll
-        (window as any).scrollTo({
+        (window as unknown as Window).scrollTo({
           top: offsetPosition,
           behavior: scrollBehavior,
         });

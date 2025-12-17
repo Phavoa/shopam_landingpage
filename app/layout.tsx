@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import NewsletterSection from "@/components/home/Footer";
-import ShopAmHeader from "@/components/shared/Header";
+import HeaderWrapper from "@/components/shared/HeaderWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -57,7 +57,7 @@ export default function RootLayout({
       className={`${terminaFont.variable} ${geistSans.variable} ${geistMono.variable}`}
     >
       <body className="antialiased">
-        <ShopAmHeader />
+        <HeaderWrapper />
         {children}
         <NewsletterSection />
       </body>
