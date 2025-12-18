@@ -187,7 +187,7 @@ export default function ContactPage() {
                 icon={<CustomMapIcon />}
                 title="Office"
                 description="Visit or write to us at:"
-                action="12 Bode Thomas Street, Lagos"
+                action=""
               />
             </div>
 
