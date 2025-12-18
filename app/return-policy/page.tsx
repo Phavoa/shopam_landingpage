@@ -32,8 +32,8 @@ export default function RefundPolicyPage() {
                 described, damaged, or fake. To make returns easy, buyers simply
                 ship the package back through a ShopAm Parcel Shop, and ShopAm's
                 logistics team handles the process. The cost of return logistics
-                is the responsibility of the seller, which ensures that sellers
-                remain accountable for the quality of the products they list.
+                is the responsibility of shopAm, and ensures that sellers remain
+                accountable for the quality of the products they list.
               </p>
 
               {/* Paragraph 2 */}

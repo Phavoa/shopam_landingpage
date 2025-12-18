@@ -14,10 +14,6 @@ const Features = () => {
             EveryThing You Need
           </h1>
 
-          <p className="text-base md:text-lg font-sans text-gray-700 leading-relaxed max-w-3xl mx-auto">
-            Everything You Need for Safe Shopping and Selling
-          </p>
-
           <p className="text-lg font-sans text-gray-700 leading-relaxed max-w-4xl mx-auto">
             Shop, sell, and earn with confidence using our comprehensive
             platform

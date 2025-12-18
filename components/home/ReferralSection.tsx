@@ -3,7 +3,7 @@ import ProcessImage from "./ProcessImage";
 import AnimatedUnderlineTitle from "./AnimatedUnderlineTitle";
 
 const referralBenefits = [
-  "Earn N1,000 instantly when someone signs up and makes first purchase",
+  "Earn N100 instantly when someone signs up and makes first purchase",
   "Get N5,000 when they spend N500,000",
   "Earn N10,000 when they reach N1,500,000",
   "No limit to how many people you can refer",
